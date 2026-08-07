@@ -77,3 +77,5 @@ apps/backend/config/{development,testing,production}/
 
 阶段一（基础框架）与阶段二（认证鉴权）已完成，登录鉴权全链路可跑通；
 用户管理已实现，角色/菜单/部门目前仅提供只读接口。详见 [CLAUDE.md](CLAUDE.md)。
+
+## 后期规划
