@@ -1,0 +1,50 @@
+# 后端镜像：多阶段构建，产出仅含单一二进制的精简镜像
+# 构建上下文为仓库根目录：docker build -f deploy/Dockerfile.backend .
+
+FROM golang:1.21-alpine AS builder
+
+WORKDIR /build
+
+ENV CGO_ENABLED=0 GOOS=linux
+
+# 先只拷依赖清单，让依赖层在源码变更时仍能命中缓存。
+# 用 go mod download 而非 tidy：构建严格依据已提交的 go.sum，
+# 保证镜像内依赖版本与本地一致、结果可复现。
+COPY apps/backend/go.mod apps/backend/go.sum ./
+RUN go mod download
+
+COPY apps/backend/ ./
+
+# -trimpath 去掉本地路径信息；-s -w 裁剪符号表以缩小体积
+RUN go build -trimpath -ldflags "-s -w" -o /build/server ./cmd/server
+
+# ---- 运行阶段 ----
+FROM alpine:3.19
+
+# tzdata 用于正确解析 Asia/Shanghai；ca-certificates 供 HTTPS 外呼使用
+# wget 由 busybox 提供，用于容器健康检查
+RUN apk add --no-cache ca-certificates tzdata && \
+    ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
+    echo "Asia/Shanghai" > /etc/timezone
+
+WORKDIR /app
+
+COPY --from=builder /build/server /app/server
+
+# 配置目录（含各环境子目录）与 Casbin 模型文件需随镜像提供。
+# 注意：yaml 中的密钥字段为空，实际值由环境变量注入，镜像内不含任何密钥。
+COPY apps/backend/config/ /app/config/
+
+# 以非 root 运行，缩小容器逃逸后的影响面
+#
+# uploads 必须在此预建并授权：Docker 挂载数据卷时若容器内该路径已存在，
+# 卷会继承其属主；否则挂载点归 root，而进程以 app 身份运行，
+# 写头像会失败并报 permission denied。
+RUN addgroup -S app && adduser -S -G app app && \
+    mkdir -p /app/logs /app/uploads && chown -R app:app /app
+USER app
+
+EXPOSE 8080
+
+# APP_ENV 由 compose 注入（production），决定加载 config/production/ 下的配置
+CMD ["/app/server", "-config", "/app/config"]

@@ -1,0 +1,32 @@
+# 应用基础配置 · testing（测试联调环境）
+
+app:
+  name: rbac-admin
+  env: testing
+  port: 8080
+  mode: release
+  # 测试环境开启验证码，与生产行为保持一致
+  captcha: true
+
+jwt:
+  secret: ""
+  issuer: rbac-admin
+  expireHours: 2
+  refreshExpireHours: 168
+
+crypto:
+  aesKey: ""
+  hmacKey: ""
+  keyVersion: 1
+
+cors:
+  # 按测试环境前端域名调整
+  allowOrigins:
+    - http://test.example.com
+
+casbin:
+  modelPath: config/rbac_model.conf
+
+upload:
+  dir: uploads
+  urlPrefix: /uploads

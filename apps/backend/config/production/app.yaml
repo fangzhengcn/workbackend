@@ -1,0 +1,37 @@
+# 应用基础配置 · production
+#
+# 生产环境所有敏感项一律由环境变量 / KMS 注入，本文件不得出现任何密钥明文。
+
+app:
+  name: rbac-admin
+  env: production
+  port: 8080
+  mode: release
+  captcha: true
+
+jwt:
+  # 必须由 APP_JWT_SECRET 注入，缺失则启动失败
+  secret: ""
+  issuer: rbac-admin
+  expireHours: 2
+  refreshExpireHours: 168
+
+crypto:
+  # 必须由 APP_CRYPTO_AESKEY / APP_CRYPTO_HMACKEY 注入
+  # 生产建议接入云 KMS 托管，密钥轮换时递增 keyVersion
+  aesKey: ""
+  hmacKey: ""
+  keyVersion: 1
+
+cors:
+  # 生产环境务必收紧到真实前端域名，不要留通配或 localhost
+  allowOrigins:
+    - https://admin.example.com
+
+casbin:
+  modelPath: config/rbac_model.conf
+
+upload:
+  # 生产环境建议挂到独立数据卷或改用对象存储
+  dir: uploads
+  urlPrefix: /uploads

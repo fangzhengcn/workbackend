@@ -1,0 +1,16 @@
+{
+  "name": "workbackend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "RBAC 权限管理后台 monorepo（Vue3 + Golang）",
+  "packageManager": "pnpm@9.12.0",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "pnpm --filter @workbackend/web dev",
+    "build": "pnpm --filter @workbackend/web build",
+    "typecheck": "pnpm -r typecheck",
+    "lint": "pnpm -r lint"
+  }
+}

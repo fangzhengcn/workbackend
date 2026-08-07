@@ -1,0 +1,9 @@
+# Redis 配置 · testing
+
+redis:
+  host: 127.0.0.1
+  port: 6379
+  password: ""
+  # 与开发环境区分 db，避免相互污染缓存
+  db: 1
+  poolSize: 20

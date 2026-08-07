@@ -1,0 +1,12 @@
+# 日志配置 · testing
+
+log:
+  level: info
+  # 便于测试环境接入日志采集系统
+  format: json
+  dir: logs
+  maxSize: 100
+  maxBackups: 10
+  maxAge: 30
+  compress: true
+  stdout: true

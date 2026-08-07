@@ -1,0 +1,18 @@
+# 日志配置 · development
+
+log:
+  # debug / info / warn / error
+  level: debug
+  # text / json —— 开发环境用 text 便于人读
+  format: text
+  # 日志目录，相对于进程工作目录
+  dir: logs
+  # 单文件最大体积（MB）
+  maxSize: 100
+  # 保留旧文件个数
+  maxBackups: 10
+  # 保留天数
+  maxAge: 30
+  compress: true
+  # 是否同时输出到控制台
+  stdout: true

@@ -1,0 +1,18 @@
+# 数据库配置 · testing
+#
+# 连接信息由环境变量注入：APP_MYSQL_HOST / APP_MYSQL_PASSWORD 等
+
+mysql:
+  host: 127.0.0.1
+  port: 3306
+  username: root
+  password: ""
+  database: rbac_admin_test
+  charset: utf8mb4
+  parseTime: true
+  loc: Local
+  maxIdleConns: 10
+  maxOpenConns: 100
+  connMaxLifetime: 60
+  # 测试环境只记慢查询与错误，避免日志过量
+  logLevel: warn

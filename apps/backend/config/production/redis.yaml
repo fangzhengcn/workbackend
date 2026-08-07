@@ -1,0 +1,9 @@
+# Redis 配置 · production
+
+redis:
+  host: redis
+  port: 6379
+  # 必须由 APP_REDIS_PASSWORD 注入
+  password: ""
+  db: 0
+  poolSize: 50

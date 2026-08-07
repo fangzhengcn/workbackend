@@ -1,0 +1,19 @@
+# 数据库配置 · production
+#
+# 连接信息全部由环境变量注入，本文件仅保留连接池等非敏感调优参数。
+
+mysql:
+  host: mysql
+  port: 3306
+  username: root
+  password: ""
+  database: rbac_admin
+  charset: utf8mb4
+  parseTime: true
+  loc: Local
+  # 生产按实例规格调整；maxOpenConns 不应超过 MySQL 的 max_connections
+  maxIdleConns: 20
+  maxOpenConns: 200
+  connMaxLifetime: 60
+  # 生产只记错误，避免 SQL 日志刷满磁盘并泄露数据
+  logLevel: error

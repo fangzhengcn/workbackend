@@ -1,0 +1,32 @@
+# dependencies
+node_modules/
+.pnpm-store/
+
+# frontend build output
+dist/
+dist-ssr/
+*.local
+
+# Go build output
+bin/
+*.exe
+*.test
+*.out
+
+# secrets & local config —— AES/HMAC/JWT 密钥绝不入库
+.env
+.env.*
+!.env.example
+deploy/.env
+# 各环境的本地覆盖配置
+apps/backend/config/*/*.local.yaml
+
+# logs
+logs/
+*.log
+
+# editor / OS
+.idea/
+.vscode/*
+!.vscode/extensions.json
+.DS_Store

@@ -1,0 +1,28 @@
+# 构建上下文排除项，减小镜像层体积并避免密钥进入镜像
+
+# 依赖与构建产物
+node_modules
+**/node_modules
+**/dist
+apps/backend/bin
+
+# 密钥与本地配置 —— 绝不可进入镜像
+.env
+.env.*
+!.env.example
+deploy/.env
+
+# 日志
+**/logs
+**/*.log
+
+# 版本控制与编辑器
+.git
+.gitignore
+.idea
+.vscode
+**/.DS_Store
+
+# 文档（建表脚本除外：compose 需挂载它做初始化）
+*.md
+!docs/*.sql

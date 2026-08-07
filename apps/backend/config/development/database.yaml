@@ -1,0 +1,20 @@
+# 数据库配置 · development
+#
+# 密码严禁写入本文件，通过 APP_MYSQL_PASSWORD 注入
+
+mysql:
+  host: 127.0.0.1
+  port: 3306
+  username: root
+  password: ""
+  database: rbac_admin
+  charset: utf8mb4
+  parseTime: true
+  loc: Local
+  maxIdleConns: 10
+  maxOpenConns: 100
+  # 连接最大存活时间（分钟）
+  connMaxLifetime: 60
+  # SQL 日志级别：silent / error / warn / info
+  # 开发环境用 info 打印全部 SQL，便于排查
+  logLevel: info

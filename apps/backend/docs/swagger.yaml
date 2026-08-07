@@ -1,0 +1,2144 @@
+basePath: /api/v1
+definitions:
+  github_com_fangzhengcn_workbackend_apps_backend_internal_dto.AssignMenusRequest:
+    properties:
+      menuIds:
+        items:
+          type: integer
+        type: array
+    required:
+    - menuIds
+    type: object
+  github_com_fangzhengcn_workbackend_apps_backend_internal_dto.AssignRolesRequest:
+    properties:
+      roleIds:
+        items:
+          type: integer
+        type: array
+    required:
+    - roleIds
+    type: object
+  github_com_fangzhengcn_workbackend_apps_backend_internal_dto.ChangePasswordRequest:
+    properties:
+      newPassword:
+        maxLength: 64
+        minLength: 6
+        type: string
+      oldPassword:
+        maxLength: 64
+        minLength: 6
+        type: string
+    required:
+    - newPassword
+    - oldPassword
+    type: object
+  github_com_fangzhengcn_workbackend_apps_backend_internal_dto.CreateDeptRequest:
+    properties:
+      leader:
+        maxLength: 64
+        type: string
+      name:
+        maxLength: 64
+        type: string
+      parentId:
+        type: integer
+      phone:
+        maxLength: 32
+        type: string
+      sort:
+        type: integer
+      status:
+        enum:
+        - 0
+        - 1
+        type: integer
+    required:
+    - name
+    type: object
+  github_com_fangzhengcn_workbackend_apps_backend_internal_dto.CreateDictDataRequest:
+    properties:
+      dictTypeId:
+        description: |-
+          DictTypeID 决定归属；dict_type 冗余列由服务层按此 ID 推导，不由前端传入，
+          避免两者不一致。
+        type: integer
+      isDefault:
+        enum:
+        - 0
+        - 1
+        type: integer
+      label:
+        maxLength: 100
+        type: string
+      remark:
+        maxLength: 255
+        type: string
+      sort:
+        type: integer
+      status:
+        enum:
+        - 0
+        - 1
+        type: integer
+      value:
+        maxLength: 100
+        type: string
+    required:
+    - dictTypeId
+    - label
+    - value
+    type: object
+  github_com_fangzhengcn_workbackend_apps_backend_internal_dto.CreateDictTypeRequest:
+    properties:
+      name:
+        maxLength: 64
+        type: string
+      remark:
+        maxLength: 255
+        type: string
+      status:
+        enum:
+        - 0
+        - 1
+        type: integer
+      type:
+        description: |-
+          Type 是数据项的归属键，只允许字母/数字/下划线：
+          它会作为 URL 路径段用于按类型取数据（/dicts/data/{type}）。
+        maxLength: 64
+        type: string
+    required:
+    - name
+    - type
+    type: object
+  github_com_fangzhengcn_workbackend_apps_backend_internal_dto.CreateMenuRequest:
+    properties:
+      component:
+        maxLength: 255
+        type: string
+      icon:
+        maxLength: 100
+        type: string
+      isFrame:
+        enum:
+        - 0
+        - 1
+        type: integer
+      name:
+        maxLength: 64
+        type: string
+      parentId:
+        type: integer
+      path:
+        maxLength: 200
+        type: string
+      perms:
+        maxLength: 100
+        type: string
+      sort:
+        type: integer
+      status:
+        enum:
+        - 0
+        - 1
+        type: integer
+      type:
+        enum:
+        - 1
+        - 2
+        - 3
+        type: integer
+      visible:
+        enum:
+        - 0
+        - 1
+        type: integer
+    required:
+    - name
+    - type
+    type: object
+  github_com_fangzhengcn_workbackend_apps_backend_internal_dto.CreateRoleRequest:
+    properties:
+      code:
+        description: Code 为权限判定依据，只允许字母/数字/下划线/冒号，避免与 Casbin 策略解析冲突。
+        maxLength: 64
+        type: string
+      dataScope:
+        enum:
+        - 1
+        - 2
+        - 3
+        - 4
+        - 5
+        type: integer
+      deptIds:
+        items:
+          type: integer
+        type: array
+      menuIds:
+        items:
+          type: integer
+        type: array
+      name:
+        maxLength: 64
+        type: string
+      remark:
+        maxLength: 255
+        type: string
+      sort:
+        type: integer
+      status:
+        enum:
+        - 0
+        - 1
+        type: integer
+    required:
+    - code
+    - name
+    type: object
+  github_com_fangzhengcn_workbackend_apps_backend_internal_dto.CreateUserRequest:
+    properties:
+      deptId:
+        type: integer
+      email:
+        maxLength: 128
+        type: string
+      gender:
+        enum:
+        - 0
+        - 1
+        - 2
+        type: integer
+      nickname:
+        maxLength: 64
+        type: string
+      password:
+        maxLength: 64
+        minLength: 6
+        type: string
+      phone:
+        type: string
+      remark:
+        maxLength: 255
+        type: string
+      roleIds:
+        items:
+          type: integer
+        type: array
+      status:
+        enum:
+        - 0
+        - 1
+        type: integer
+      username:
+        maxLength: 64
+        minLength: 2
+        type: string
+    required:
+    - password
+    - username
+    type: object
+  github_com_fangzhengcn_workbackend_apps_backend_internal_dto.DataScopeRequest:
+    properties:
+      dataScope:
+        enum:
+        - 1
+        - 2
+        - 3
+        - 4
+        - 5
+        type: integer
+      deptIds:
+        description: DeptIDs 仅在 DataScope=2（自定义）时生效。
+        items:
+          type: integer
+        type: array
+    required:
+    - dataScope
+    type: object
+  github_com_fangzhengcn_workbackend_apps_backend_internal_dto.DeleteLogsRequest:
+    properties:
+      ids:
+        items:
+          type: integer
+        minItems: 1
+        type: array
+    required:
+    - ids
+    type: object
+  github_com_fangzhengcn_workbackend_apps_backend_internal_dto.LoginRequest:
+    properties:
+      captchaCode:
+        type: string
+      captchaId:
+        description: CaptchaID 与 CaptchaCode 配对校验；未启用验证码时可为空。
+        type: string
+      password:
+        maxLength: 64
+        minLength: 6
+        type: string
+      username:
+        maxLength: 64
+        minLength: 2
+        type: string
+    required:
+    - password
+    - username
+    type: object
+  github_com_fangzhengcn_workbackend_apps_backend_internal_dto.RefreshRequest:
+    properties:
+      refreshToken:
+        type: string
+    required:
+    - refreshToken
+    type: object
+  github_com_fangzhengcn_workbackend_apps_backend_internal_dto.ResetPasswordRequest:
+    properties:
+      password:
+        maxLength: 64
+        minLength: 6
+        type: string
+    required:
+    - password
+    type: object
+  github_com_fangzhengcn_workbackend_apps_backend_internal_dto.UpdateDeptRequest:
+    properties:
+      leader:
+        maxLength: 64
+        type: string
+      name:
+        maxLength: 64
+        type: string
+      parentId:
+        type: integer
+      phone:
+        maxLength: 32
+        type: string
+      sort:
+        type: integer
+      status:
+        enum:
+        - 0
+        - 1
+        type: integer
+    type: object
+  github_com_fangzhengcn_workbackend_apps_backend_internal_dto.UpdateDictDataRequest:
+    properties:
+      isDefault:
+        enum:
+        - 0
+        - 1
+        type: integer
+      label:
+        maxLength: 100
+        type: string
+      remark:
+        maxLength: 255
+        type: string
+      sort:
+        type: integer
+      status:
+        enum:
+        - 0
+        - 1
+        type: integer
+      value:
+        maxLength: 100
+        type: string
+    type: object
+  github_com_fangzhengcn_workbackend_apps_backend_internal_dto.UpdateDictTypeRequest:
+    properties:
+      name:
+        maxLength: 64
+        type: string
+      remark:
+        maxLength: 255
+        type: string
+      status:
+        enum:
+        - 0
+        - 1
+        type: integer
+      type:
+        maxLength: 64
+        type: string
+    type: object
+  github_com_fangzhengcn_workbackend_apps_backend_internal_dto.UpdateMenuRequest:
+    properties:
+      component:
+        maxLength: 255
+        type: string
+      icon:
+        maxLength: 100
+        type: string
+      isFrame:
+        enum:
+        - 0
+        - 1
+        type: integer
+      name:
+        maxLength: 64
+        type: string
+      parentId:
+        type: integer
+      path:
+        maxLength: 200
+        type: string
+      perms:
+        maxLength: 100
+        type: string
+      sort:
+        type: integer
+      status:
+        enum:
+        - 0
+        - 1
+        type: integer
+      type:
+        enum:
+        - 1
+        - 2
+        - 3
+        type: integer
+      visible:
+        enum:
+        - 0
+        - 1
+        type: integer
+    type: object
+  github_com_fangzhengcn_workbackend_apps_backend_internal_dto.UpdateProfileRequest:
+    properties:
+      email:
+        maxLength: 128
+        type: string
+      gender:
+        enum:
+        - 0
+        - 1
+        - 2
+        type: integer
+      nickname:
+        maxLength: 64
+        type: string
+      phone:
+        type: string
+    type: object
+  github_com_fangzhengcn_workbackend_apps_backend_internal_dto.UpdateRoleRequest:
+    properties:
+      dataScope:
+        enum:
+        - 1
+        - 2
+        - 3
+        - 4
+        - 5
+        type: integer
+      menuIds:
+        items:
+          type: integer
+        type: array
+      name:
+        maxLength: 64
+        type: string
+      remark:
+        maxLength: 255
+        type: string
+      sort:
+        type: integer
+      status:
+        enum:
+        - 0
+        - 1
+        type: integer
+    type: object
+  github_com_fangzhengcn_workbackend_apps_backend_internal_dto.UpdateUserRequest:
+    properties:
+      deptId:
+        type: integer
+      email:
+        maxLength: 128
+        type: string
+      gender:
+        enum:
+        - 0
+        - 1
+        - 2
+        type: integer
+      nickname:
+        maxLength: 64
+        type: string
+      phone:
+        type: string
+      remark:
+        maxLength: 255
+        type: string
+      roleIds:
+        items:
+          type: integer
+        type: array
+      status:
+        enum:
+        - 0
+        - 1
+        type: integer
+    type: object
+  github_com_fangzhengcn_workbackend_apps_backend_internal_vo.CaptchaResult:
+    properties:
+      captchaId:
+        type: string
+      imageBase64:
+        description: ImageBase64 形如 data:image/png;base64,...，可直接作为 img src。
+        type: string
+    type: object
+  github_com_fangzhengcn_workbackend_apps_backend_internal_vo.DeptNode:
+    properties:
+      children:
+        items:
+          $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_internal_vo.DeptNode'
+        type: array
+      id:
+        type: integer
+      leader:
+        type: string
+      name:
+        type: string
+      parentId:
+        type: integer
+      phone:
+        type: string
+      sort:
+        type: integer
+      status:
+        type: integer
+    type: object
+  github_com_fangzhengcn_workbackend_apps_backend_internal_vo.DictDataItem:
+    properties:
+      createdAt:
+        type: string
+      dictType:
+        type: string
+      dictTypeId:
+        type: integer
+      id:
+        type: integer
+      isDefault:
+        type: integer
+      label:
+        type: string
+      remark:
+        type: string
+      sort:
+        type: integer
+      status:
+        type: integer
+      value:
+        type: string
+    type: object
+  github_com_fangzhengcn_workbackend_apps_backend_internal_vo.DictTypeItem:
+    properties:
+      createdAt:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      remark:
+        type: string
+      status:
+        type: integer
+      type:
+        type: string
+    type: object
+  github_com_fangzhengcn_workbackend_apps_backend_internal_vo.LoginLogItem:
+    properties:
+      browser:
+        type: string
+      id:
+        type: integer
+      ipaddr:
+        type: string
+      location:
+        type: string
+      loginTime:
+        type: string
+      msg:
+        type: string
+      os:
+        type: string
+      status:
+        type: integer
+      username:
+        type: string
+    type: object
+  github_com_fangzhengcn_workbackend_apps_backend_internal_vo.LoginResult:
+    properties:
+      accessToken:
+        type: string
+      expiresIn:
+        description: ExpiresIn 为 Access Token 剩余有效秒数。
+        type: integer
+      refreshToken:
+        type: string
+      tokenType:
+        type: string
+    type: object
+  github_com_fangzhengcn_workbackend_apps_backend_internal_vo.MenuNode:
+    properties:
+      children:
+        items:
+          $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_internal_vo.MenuNode'
+        type: array
+      component:
+        type: string
+      icon:
+        type: string
+      id:
+        type: integer
+      isFrame:
+        type: integer
+      name:
+        type: string
+      parentId:
+        type: integer
+      path:
+        type: string
+      perms:
+        type: string
+      sort:
+        type: integer
+      status:
+        type: integer
+      type:
+        type: integer
+      visible:
+        type: integer
+    type: object
+  github_com_fangzhengcn_workbackend_apps_backend_internal_vo.OperLogDetail:
+    properties:
+      businessType:
+        type: integer
+      costTime:
+        type: integer
+      createdAt:
+        type: string
+      errorMsg:
+        type: string
+      id:
+        type: integer
+      jsonResult:
+        type: string
+      method:
+        type: string
+      operIp:
+        type: string
+      operName:
+        type: string
+      operUserId:
+        type: integer
+      requestParam:
+        type: string
+      requestUrl:
+        type: string
+      status:
+        type: integer
+      title:
+        type: string
+    type: object
+  github_com_fangzhengcn_workbackend_apps_backend_internal_vo.OperLogItem:
+    properties:
+      businessType:
+        type: integer
+      costTime:
+        type: integer
+      createdAt:
+        type: string
+      errorMsg:
+        type: string
+      id:
+        type: integer
+      method:
+        type: string
+      operIp:
+        type: string
+      operName:
+        type: string
+      operUserId:
+        type: integer
+      requestUrl:
+        type: string
+      status:
+        type: integer
+      title:
+        type: string
+    type: object
+  github_com_fangzhengcn_workbackend_apps_backend_internal_vo.RoleDetail:
+    properties:
+      code:
+        type: string
+      createdAt:
+        type: string
+      dataScope:
+        type: integer
+      deptIds:
+        description: DeptIDs 仅在 DataScope 为自定义时有意义。
+        items:
+          type: integer
+        type: array
+      id:
+        type: integer
+      menuIds:
+        items:
+          type: integer
+        type: array
+      name:
+        type: string
+      remark:
+        type: string
+      sort:
+        type: integer
+      status:
+        type: integer
+    type: object
+  github_com_fangzhengcn_workbackend_apps_backend_internal_vo.RoleItem:
+    properties:
+      code:
+        type: string
+      createdAt:
+        type: string
+      dataScope:
+        type: integer
+      id:
+        type: integer
+      name:
+        type: string
+      remark:
+        type: string
+      sort:
+        type: integer
+      status:
+        type: integer
+    type: object
+  github_com_fangzhengcn_workbackend_apps_backend_internal_vo.UserInfo:
+    properties:
+      avatar:
+        type: string
+      deptId:
+        type: integer
+      deptName:
+        type: string
+      email:
+        type: string
+      gender:
+        type: integer
+      id:
+        type: integer
+      lastLoginAt:
+        type: string
+      nickname:
+        type: string
+      perms:
+        items:
+          type: string
+        type: array
+      phone:
+        type: string
+      roles:
+        items:
+          type: string
+        type: array
+      status:
+        type: integer
+      username:
+        type: string
+    type: object
+  github_com_fangzhengcn_workbackend_apps_backend_internal_vo.UserItem:
+    properties:
+      createdAt:
+        type: string
+      deptId:
+        type: integer
+      deptName:
+        type: string
+      email:
+        type: string
+      gender:
+        type: integer
+      id:
+        type: integer
+      lastLoginAt:
+        type: string
+      nickname:
+        type: string
+      phone:
+        type: string
+      remark:
+        type: string
+      roles:
+        items:
+          $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_internal_vo.RoleItem'
+        type: array
+      status:
+        type: integer
+      username:
+        type: string
+    type: object
+  github_com_fangzhengcn_workbackend_apps_backend_pkg_response.Body:
+    properties:
+      code:
+        type: integer
+      data: {}
+      message:
+        type: string
+    type: object
+  github_com_fangzhengcn_workbackend_apps_backend_pkg_response.PageData:
+    properties:
+      list: {}
+      page:
+        type: integer
+      size:
+        type: integer
+      total:
+        type: integer
+    type: object
+info:
+  contact: {}
+  description: 基于 RBAC 的通用后台管理系统接口
+  title: 权限管理后台 API
+  version: "1.0"
+paths:
+  /auth/avatar:
+    post:
+      consumes:
+      - multipart/form-data
+      parameters:
+      - description: 头像图片（JPG/PNG/GIF/WEBP，不超过 2MB）
+        in: formData
+        name: file
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 头像访问 URL
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_pkg_response.Body'
+            - properties:
+                data:
+                  type: string
+              type: object
+      summary: 上传头像
+      tags:
+      - 个人中心
+  /auth/captcha:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_pkg_response.Body'
+            - properties:
+                data:
+                  $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_internal_vo.CaptchaResult'
+              type: object
+      summary: 获取图形验证码
+      tags:
+      - 认证
+  /auth/info:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_pkg_response.Body'
+            - properties:
+                data:
+                  $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_internal_vo.UserInfo'
+              type: object
+      summary: 获取当前用户信息
+      tags:
+      - 认证
+  /auth/login:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 登录参数
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_internal_dto.LoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 登录成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_pkg_response.Body'
+            - properties:
+                data:
+                  $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_internal_vo.LoginResult'
+              type: object
+      summary: 用户登录
+      tags:
+      - 认证
+  /auth/logout:
+    post:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_pkg_response.Body'
+      summary: 用户登出
+      tags:
+      - 认证
+  /auth/menus:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_pkg_response.Body'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_internal_vo.MenuNode'
+                  type: array
+              type: object
+      summary: 获取当前用户菜单树
+      tags:
+      - 认证
+  /auth/password:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: 密码参数
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_internal_dto.ChangePasswordRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_pkg_response.Body'
+      summary: 修改自己的密码
+      tags:
+      - 个人中心
+  /auth/profile:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: 个人资料
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_internal_dto.UpdateProfileRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_pkg_response.Body'
+      summary: 修改个人资料
+      tags:
+      - 个人中心
+  /auth/refresh:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 刷新参数
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_internal_dto.RefreshRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_pkg_response.Body'
+            - properties:
+                data:
+                  $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_internal_vo.LoginResult'
+              type: object
+      summary: 刷新令牌
+      tags:
+      - 认证
+  /depts:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 部门信息
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_internal_dto.CreateDeptRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_pkg_response.Body'
+      summary: 新增部门
+      tags:
+      - 部门管理
+  /depts/{id}:
+    delete:
+      parameters:
+      - description: 部门ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_pkg_response.Body'
+      summary: 删除部门
+      tags:
+      - 部门管理
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: 部门ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: 部门信息
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_internal_dto.UpdateDeptRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_pkg_response.Body'
+      summary: 修改部门
+      tags:
+      - 部门管理
+  /depts/tree:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_pkg_response.Body'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_internal_vo.DeptNode'
+                  type: array
+              type: object
+      summary: 部门树
+      tags:
+      - 部门管理
+  /dicts/data:
+    get:
+      parameters:
+      - description: DictType 为空时返回全部类型的数据；前端双栏布局下通常按类型过滤。
+        in: query
+        maxLength: 64
+        name: dictType
+        type: string
+      - in: query
+        maxLength: 100
+        name: label
+        type: string
+      - in: query
+        minimum: 1
+        name: page
+        type: integer
+      - in: query
+        maximum: 200
+        minimum: 1
+        name: size
+        type: integer
+      - enum:
+        - 0
+        - 1
+        in: query
+        name: status
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_pkg_response.Body'
+            - properties:
+                data:
+                  allOf:
+                  - $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_pkg_response.PageData'
+                  - properties:
+                      list:
+                        items:
+                          $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_internal_vo.DictDataItem'
+                        type: array
+                    type: object
+              type: object
+      summary: 字典数据列表
+      tags:
+      - 字典管理
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 字典数据
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_internal_dto.CreateDictDataRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_pkg_response.Body'
+      summary: 新增字典数据
+      tags:
+      - 字典管理
+  /dicts/data/{id}:
+    delete:
+      parameters:
+      - description: 字典数据ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_pkg_response.Body'
+      summary: 删除字典数据
+      tags:
+      - 字典管理
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: 字典数据ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: 字典数据
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_internal_dto.UpdateDictDataRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_pkg_response.Body'
+      summary: 修改字典数据
+      tags:
+      - 字典管理
+  /dicts/data/type/{type}:
+    get:
+      parameters:
+      - description: 字典类型标识
+        in: path
+        name: type
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_pkg_response.Body'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_internal_vo.DictDataItem'
+                  type: array
+              type: object
+      summary: 按类型取字典项
+      tags:
+      - 字典管理
+  /dicts/types:
+    get:
+      parameters:
+      - in: query
+        maxLength: 64
+        name: name
+        type: string
+      - in: query
+        minimum: 1
+        name: page
+        type: integer
+      - in: query
+        maximum: 200
+        minimum: 1
+        name: size
+        type: integer
+      - enum:
+        - 0
+        - 1
+        in: query
+        name: status
+        type: integer
+      - in: query
+        maxLength: 64
+        name: type
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_pkg_response.Body'
+            - properties:
+                data:
+                  allOf:
+                  - $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_pkg_response.PageData'
+                  - properties:
+                      list:
+                        items:
+                          $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_internal_vo.DictTypeItem'
+                        type: array
+                    type: object
+              type: object
+      summary: 字典类型列表
+      tags:
+      - 字典管理
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 字典类型
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_internal_dto.CreateDictTypeRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_pkg_response.Body'
+      summary: 新增字典类型
+      tags:
+      - 字典管理
+  /dicts/types/{id}:
+    delete:
+      parameters:
+      - description: 字典类型ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_pkg_response.Body'
+      summary: 删除字典类型
+      tags:
+      - 字典管理
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: 字典类型ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: 字典类型
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_internal_dto.UpdateDictTypeRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_pkg_response.Body'
+      summary: 修改字典类型
+      tags:
+      - 字典管理
+  /login-logs:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 日志ID集合
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_internal_dto.DeleteLogsRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_pkg_response.Body'
+      summary: 删除登录日志
+      tags:
+      - 日志管理
+    get:
+      parameters:
+      - in: query
+        maxLength: 32
+        name: beginTime
+        type: string
+      - in: query
+        maxLength: 32
+        name: endTime
+        type: string
+      - in: query
+        maxLength: 64
+        name: ipaddr
+        type: string
+      - in: query
+        minimum: 1
+        name: page
+        type: integer
+      - in: query
+        maximum: 200
+        minimum: 1
+        name: size
+        type: integer
+      - enum:
+        - 0
+        - 1
+        in: query
+        name: status
+        type: integer
+      - in: query
+        maxLength: 64
+        name: username
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_pkg_response.Body'
+            - properties:
+                data:
+                  allOf:
+                  - $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_pkg_response.PageData'
+                  - properties:
+                      list:
+                        items:
+                          $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_internal_vo.LoginLogItem'
+                        type: array
+                    type: object
+              type: object
+      summary: 登录日志列表
+      tags:
+      - 日志管理
+  /login-logs/clean:
+    delete:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_pkg_response.Body'
+      summary: 清空登录日志
+      tags:
+      - 日志管理
+  /login-logs/export:
+    get:
+      parameters:
+      - in: query
+        maxLength: 32
+        name: beginTime
+        type: string
+      - in: query
+        maxLength: 32
+        name: endTime
+        type: string
+      - in: query
+        maxLength: 64
+        name: ipaddr
+        type: string
+      - in: query
+        minimum: 1
+        name: page
+        type: integer
+      - in: query
+        maximum: 200
+        minimum: 1
+        name: size
+        type: integer
+      - enum:
+        - 0
+        - 1
+        in: query
+        name: status
+        type: integer
+      - in: query
+        maxLength: 64
+        name: username
+        type: string
+      produces:
+      - text/csv
+      responses:
+        "200":
+          description: CSV 文件
+          schema:
+            type: file
+      summary: 导出登录日志
+      tags:
+      - 日志管理
+  /menus:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 菜单信息
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_internal_dto.CreateMenuRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_pkg_response.Body'
+      summary: 新增菜单
+      tags:
+      - 菜单管理
+  /menus/{id}:
+    delete:
+      parameters:
+      - description: 菜单ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_pkg_response.Body'
+      summary: 删除菜单
+      tags:
+      - 菜单管理
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: 菜单ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: 菜单信息
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_internal_dto.UpdateMenuRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_pkg_response.Body'
+      summary: 修改菜单
+      tags:
+      - 菜单管理
+  /menus/tree:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_pkg_response.Body'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_internal_vo.MenuNode'
+                  type: array
+              type: object
+      summary: 菜单树
+      tags:
+      - 菜单管理
+  /oper-logs:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 日志ID集合
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_internal_dto.DeleteLogsRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_pkg_response.Body'
+      summary: 删除操作日志
+      tags:
+      - 日志管理
+    get:
+      parameters:
+      - in: query
+        maxLength: 32
+        name: beginTime
+        type: string
+      - description: BusinessType 见 model.BusinessType* 常量：0 其他 1 新增 2 修改 3 删除 4 查询。
+        enum:
+        - 0
+        - 1
+        - 2
+        - 3
+        - 4
+        in: query
+        name: businessType
+        type: integer
+      - in: query
+        maxLength: 32
+        name: endTime
+        type: string
+      - in: query
+        maxLength: 64
+        name: operName
+        type: string
+      - in: query
+        minimum: 1
+        name: page
+        type: integer
+      - in: query
+        maximum: 200
+        minimum: 1
+        name: size
+        type: integer
+      - enum:
+        - 0
+        - 1
+        in: query
+        name: status
+        type: integer
+      - description: Title 是操作模块名（如「用户管理」），模糊匹配。
+        in: query
+        maxLength: 64
+        name: title
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_pkg_response.Body'
+            - properties:
+                data:
+                  allOf:
+                  - $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_pkg_response.PageData'
+                  - properties:
+                      list:
+                        items:
+                          $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_internal_vo.OperLogItem'
+                        type: array
+                    type: object
+              type: object
+      summary: 操作日志列表
+      tags:
+      - 日志管理
+  /oper-logs/{id}:
+    get:
+      parameters:
+      - description: 日志ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_pkg_response.Body'
+            - properties:
+                data:
+                  $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_internal_vo.OperLogDetail'
+              type: object
+      summary: 操作日志详情
+      tags:
+      - 日志管理
+  /oper-logs/clean:
+    delete:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_pkg_response.Body'
+      summary: 清空操作日志
+      tags:
+      - 日志管理
+  /oper-logs/export:
+    get:
+      parameters:
+      - in: query
+        maxLength: 32
+        name: beginTime
+        type: string
+      - description: BusinessType 见 model.BusinessType* 常量：0 其他 1 新增 2 修改 3 删除 4 查询。
+        enum:
+        - 0
+        - 1
+        - 2
+        - 3
+        - 4
+        in: query
+        name: businessType
+        type: integer
+      - in: query
+        maxLength: 32
+        name: endTime
+        type: string
+      - in: query
+        maxLength: 64
+        name: operName
+        type: string
+      - in: query
+        minimum: 1
+        name: page
+        type: integer
+      - in: query
+        maximum: 200
+        minimum: 1
+        name: size
+        type: integer
+      - enum:
+        - 0
+        - 1
+        in: query
+        name: status
+        type: integer
+      - description: Title 是操作模块名（如「用户管理」），模糊匹配。
+        in: query
+        maxLength: 64
+        name: title
+        type: string
+      produces:
+      - text/csv
+      responses:
+        "200":
+          description: CSV 文件
+          schema:
+            type: file
+      summary: 导出操作日志
+      tags:
+      - 日志管理
+  /roles:
+    get:
+      parameters:
+      - in: query
+        maxLength: 64
+        name: code
+        type: string
+      - in: query
+        maxLength: 64
+        name: name
+        type: string
+      - in: query
+        minimum: 1
+        name: page
+        type: integer
+      - in: query
+        maximum: 200
+        minimum: 1
+        name: size
+        type: integer
+      - enum:
+        - 0
+        - 1
+        in: query
+        name: status
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_pkg_response.Body'
+            - properties:
+                data:
+                  allOf:
+                  - $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_pkg_response.PageData'
+                  - properties:
+                      list:
+                        items:
+                          $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_internal_vo.RoleItem'
+                        type: array
+                    type: object
+              type: object
+      summary: 角色列表
+      tags:
+      - 角色管理
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 角色信息
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_internal_dto.CreateRoleRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_pkg_response.Body'
+      summary: 新增角色
+      tags:
+      - 角色管理
+  /roles/{id}:
+    delete:
+      parameters:
+      - description: 角色ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_pkg_response.Body'
+      summary: 删除角色
+      tags:
+      - 角色管理
+    get:
+      parameters:
+      - description: 角色ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_pkg_response.Body'
+            - properties:
+                data:
+                  $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_internal_vo.RoleDetail'
+              type: object
+      summary: 角色详情
+      tags:
+      - 角色管理
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: 角色ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: 角色信息
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_internal_dto.UpdateRoleRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_pkg_response.Body'
+      summary: 修改角色
+      tags:
+      - 角色管理
+  /roles/{id}/data-scope:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: 角色ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: 数据范围
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_internal_dto.DataScopeRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_pkg_response.Body'
+      summary: 设置数据权限
+      tags:
+      - 角色管理
+  /roles/{id}/menus:
+    get:
+      parameters:
+      - description: 角色ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_pkg_response.Body'
+            - properties:
+                data:
+                  items:
+                    type: integer
+                  type: array
+              type: object
+      summary: 角色菜单ID
+      tags:
+      - 角色管理
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: 角色ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: 菜单ID集合
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_internal_dto.AssignMenusRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_pkg_response.Body'
+      summary: 分配菜单权限
+      tags:
+      - 角色管理
+  /roles/all:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_pkg_response.Body'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_internal_vo.RoleItem'
+                  type: array
+              type: object
+      summary: 全部角色
+      tags:
+      - 角色管理
+  /users:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_pkg_response.Body'
+            - properties:
+                data:
+                  $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_pkg_response.PageData'
+              type: object
+      summary: 用户列表
+      tags:
+      - 用户管理
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 用户参数
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_internal_dto.CreateUserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_pkg_response.Body'
+      summary: 新增用户
+      tags:
+      - 用户管理
+  /users/{id}:
+    delete:
+      parameters:
+      - description: 用户ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_pkg_response.Body'
+      summary: 删除用户
+      tags:
+      - 用户管理
+    get:
+      parameters:
+      - description: 用户ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_pkg_response.Body'
+            - properties:
+                data:
+                  $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_internal_vo.UserItem'
+              type: object
+      summary: 用户详情
+      tags:
+      - 用户管理
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: 用户ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: 用户参数
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_internal_dto.UpdateUserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_pkg_response.Body'
+      summary: 修改用户
+      tags:
+      - 用户管理
+  /users/{id}/password:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: 用户ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: 密码参数
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_internal_dto.ResetPasswordRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_pkg_response.Body'
+      summary: 重置密码
+      tags:
+      - 用户管理
+  /users/{id}/roles:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: 用户ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: 角色参数
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_internal_dto.AssignRolesRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_fangzhengcn_workbackend_apps_backend_pkg_response.Body'
+      summary: 分配角色
+      tags:
+      - 用户管理
+  /users/export:
+    get:
+      parameters:
+      - in: query
+        name: deptId
+        type: integer
+      - in: query
+        minimum: 1
+        name: page
+        type: integer
+      - description: Phone 只能精确匹配：手机号为密文，需转成 HMAC 盲索引后查询。
+        in: query
+        maxLength: 32
+        name: phone
+        type: string
+      - in: query
+        maximum: 200
+        minimum: 1
+        name: size
+        type: integer
+      - enum:
+        - 0
+        - 1
+        in: query
+        name: status
+        type: integer
+      - description: Username 支持模糊查询（明文列）。
+        in: query
+        maxLength: 64
+        name: username
+        type: string
+      produces:
+      - text/csv
+      responses:
+        "200":
+          description: CSV 文件
+          schema:
+            type: file
+      summary: 导出用户
+      tags:
+      - 用户管理
+securityDefinitions:
+  BearerAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

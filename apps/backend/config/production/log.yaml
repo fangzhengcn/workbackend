@@ -1,0 +1,14 @@
+# 日志配置 · production
+
+log:
+  # 生产用 info，debug 会打印过多细节且可能含敏感数据
+  level: info
+  # 结构化输出，便于 ELK / Loki 采集
+  format: json
+  dir: logs
+  maxSize: 200
+  maxBackups: 30
+  maxAge: 90
+  compress: true
+  # 容器环境保留 stdout，交由 docker logs / 日志驱动收集
+  stdout: true

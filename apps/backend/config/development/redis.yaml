@@ -1,0 +1,11 @@
+# Redis 配置 · development
+#
+# 承载 Token 黑名单、验证码、权限缓存
+# 密码通过 APP_REDIS_PASSWORD 注入
+
+redis:
+  host: 127.0.0.1
+  port: 6379
+  password: ""
+  db: 0
+  poolSize: 20
