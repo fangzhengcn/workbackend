@@ -1,5 +1,7 @@
 <template>
   <div class="login-container">
+    <KakeyaBackground />
+
     <a-card class="login-card" :bordered="false">
       <h2 class="title">权限管理后台</h2>
       <p class="subtitle">请使用您的账号登录</p>
@@ -67,6 +69,13 @@
         </a-form-item>
       </a-form>
     </a-card>
+
+    <p class="footnote">
+      <span>背景：挂谷猜想 —— 单位针在三尖瓣线内完成 180° 转向</span>
+      <!-- 右幕（δ-管束）在 <1024px 时不渲染，故这句同步隐藏，
+           否则文案会指着一个看不见的东西 -->
+      <span class="footnote-wide">；方向球上的 δ-管束</span>
+    </p>
   </div>
 </template>
 
@@ -79,6 +88,7 @@ import type { CaptchaResult } from '@workbackend/shared'
 import { getCaptcha } from '@/api/auth'
 import { usePermissionStore } from '@/store/permission'
 import { useUserStore } from '@/store/user'
+import KakeyaBackground from './KakeyaBackground.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -166,24 +176,50 @@ onMounted(loadCaptcha)
 
 <style scoped>
 .login-container {
+  position: relative;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background: linear-gradient(135deg, #1677ff 0%, #0958d9 100%);
+  /* 与画布首帧同色：canvas 是 fixed 定位的，这里兜住它之外的区域 */
+  background: #1b2540;
 }
 
+/* 毛玻璃面板。浅底也仍是深色调，纯白卡片会像补丁，
+   半透明 + 背景模糊才能和动画融为一体，同时保证表单文字的对比度。 */
 .login-card {
+  position: relative;
+  z-index: 1;
   width: 380px;
   padding: 8px;
-  border-radius: 8px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(16px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow:
+    0 16px 50px rgba(10, 20, 45, 0.45),
+    0 0 0 1px rgba(120, 170, 255, 0.16);
+  animation: card-in 0.5s ease-out both;
+}
+
+/* 卡片入场：轻微上浮。仅一次，不干扰输入 */
+@keyframes card-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .title {
   margin: 0 0 4px;
   text-align: center;
   font-size: 22px;
+  letter-spacing: 1px;
 }
 
 .subtitle {
@@ -191,6 +227,30 @@ onMounted(loadCaptcha)
   text-align: center;
   color: rgba(0, 0, 0, 0.45);
   font-size: 13px;
+}
+
+/* 背景的说明文字：压暗到几乎不抢注意力，仅在细看时可见 */
+.footnote {
+  position: relative;
+  z-index: 1;
+  margin: 20px 0 0;
+  padding: 0 16px;
+  text-align: center;
+  color: rgba(215, 232, 255, 0.42);
+  font-size: 12px;
+  letter-spacing: 0.5px;
+}
+
+/* 与 KakeyaBackground 的 TWO_SCENE_MIN_WIDTH 对齐：
+   两处阈值必须一致，否则文案与画面会不同步 */
+.footnote-wide {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .footnote-wide {
+    display: inline;
+  }
 }
 
 .captcha-row {
@@ -209,5 +269,19 @@ onMounted(loadCaptcha)
 
 .error {
   margin-bottom: 16px;
+}
+
+/* 窄屏：留出左右边距，别让卡片贴边 */
+@media (max-width: 420px) {
+  .login-card {
+    width: calc(100vw - 32px);
+  }
+}
+
+/* 尊重减弱动效设置：入场动画一并关掉（画布侧已只画静态帧） */
+@media (prefers-reduced-motion: reduce) {
+  .login-card {
+    animation: none;
+  }
 }
 </style>
